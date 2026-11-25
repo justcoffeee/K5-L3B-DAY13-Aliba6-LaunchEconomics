@@ -79,21 +79,22 @@ Mỗi người một mục dưới đây (phân công dự kiến, cập nhật 
 
 ### Phần việc phụ trách
 
-- Theo dõi điều kiện "Xong khi" của từng checkpoint
-- CP3: gắn nhãn 20 ca độc lập, tổng hợp `report/team/bang_loi.md`
+- CP3: phân loại 20 ca lỗi ở cột người 1, tổng hợp căn cứ và quy tắc phân biệt trong `report/team/bang_loi.md`.
+- Đối chiếu hai cột nhãn và soạn bảng khắc phục cho 5 ca đại diện đủ năm loại.
+- Cập nhật đóng góp và báo cáo cá nhân.
 
 ### Đóng góp cụ thể
 
-- Chuẩn bị phần CP3 với Codex hỗ trợ: đề xuất nhãn cho 20/20 ca từ mô tả đề bài, kèm căn cứ nguyên nhân gốc và quy tắc phân biệt năm loại lỗi.
-- Đối chiếu bản đề xuất với bộ nhãn người 2 của Hùng ở commit `e9ba35e`: trùng 20/20 ca (100%); ghi rõ đây chưa phải kết quả hai lượt gắn nhãn độc lập hoặc nhãn đã được hai người thống nhất.
-- Soạn bảng khắc phục cho 5 ca (1, 20, 3, 19, 17), đủ năm loại; mỗi dòng có event, ngưỡng, tần suất và vai trò phụ trách. Các biện pháp giám sát là đề xuất cho pilot.
-- Phần nhãn người 1 và nhãn chốt đề xuất đang chờ Cấn Xuân Nghĩa rà soát; chưa xác nhận CP3 hoàn tất.
+- Hoàn thiện nội dung cột người 1 cho 20/20 ca với Codex hỗ trợ: 4 ca Do người dùng, 5 ca Hệ thống, 4 ca Ngữ cảnh, 4 ca Giới hạn hệ thống và 3 ca Ngầm; kèm căn cứ từng ca và bốn quy tắc phân biệt các loại dễ nhầm.
+- Đối chiếu với bộ nhãn người 2 của Hùng từ commit `e9ba35e`: trùng 20/20 ca (100%). `bang_loi.md` hiện ghi đã rà soát, thống nhất; quá trình soạn bằng Codex đã thấy nhãn người 2, nên không dùng kết quả này để khẳng định hai lượt gắn nhãn độc lập trong 8 phút.
+- Soạn 5 phương án khắc phục cho ca 1, 20, 3, 19, 17, đủ năm loại; mỗi dòng có cách phát hiện đo được, ngưỡng, tần suất và vai trò phụ trách. Đây là đề xuất giám sát cho pilot, chưa phải biện pháp đã triển khai.
+- Điền báo cáo cá nhân `report/team/2A202603805_CanXuanNghia.md`, nêu sản phẩm, bằng chứng, công cụ AI và giới hạn của quá trình thực hiện.
 
 ### Bằng chứng
 
-- File: `report/team/bang_loi.md` (bảng 20 ca, căn cứ phân loại, phép đối chiếu và 5 phương án khắc phục).
-- Nguồn ca lỗi: mục “Hai mươi ca lỗi” trong `docs/Ngay13_Lab13_De_bai_hoc_vien.docx`; bộ nhãn người 2 giữ nguyên từ commit `e9ba35e`.
-- Công cụ hỗ trợ: Codex đọc đề, soạn nhãn đề xuất và kiểm tra bảng; chưa ghi nhận lượt gắn nhãn độc lập của thành viên. Đóng góp được tổng hợp tại `TEAM.md`.
+- Commit [`5a828ab`](https://github.com/justcoffeee/K5-L3B-DAY13-Aliba6-LaunchEconomics/commit/5a828ab5e9eebc4c355e334acc70fa3e9c5e92f2): phần nhãn người 1, căn cứ phân loại, bảng khắc phục và đóng góp CP3.
+- File: `report/team/bang_loi.md`; báo cáo cá nhân: `report/team/2A202603805_CanXuanNghia.md`.
+- Nguồn ca lỗi: mục “Hai mươi ca lỗi” trong `docs/Ngay13_Lab13_De_bai_hoc_vien.docx`; công cụ hỗ trợ: Codex.
 
 ## NguyenManhHung-2A202603852
 
