@@ -91,6 +91,29 @@ def mo_hinh(runs, reqs, gia_vao=26, gia_ra=130, gia_tool=15, luong_phut=2000,
                 hoa_don_moi_yc=(token + tool) / len(reqs))
 
 
+# ---------- Nhiệm vụ A3 · Tách theo loại yêu cầu ----------
+def bang_theo_loai(runs, reqs):
+    """Mỗi loại một dòng: số yêu cầu, tỉ lệ thành công, số lần chạy mỗi yêu cầu,
+    chi phí mỗi việc thành công (simulated) và bội số so với BASELINE."""
+    dong = []
+    for loai, nhom in reqs.groupby('loai', sort=False):
+        kq = mo_hinh(runs, nhom)
+        so_lan = runs['request_id'].isin(nhom['request_id']).sum()
+        dong.append(dict(loai=loai, so_yc=len(nhom),
+                         ti_le_tc=kq['thanh_cong'] / len(nhom),
+                         lan_chay_moi_yc=so_lan / len(nhom),
+                         cps=kq['cps'], so_voi_baseline=kq['cps'] / BASELINE))
+    thu_tu = ['noi_dia', 'hang_nang', 'quoc_te', 'doi_tac']
+    return pd.DataFrame(dong).set_index('loai').reindex(thu_tu)
+
+
+def ti_le_ok_theo_lan_thu(runs, reqs):
+    """Tỉ lệ status == 'ok' theo loại × attempt: chạy lại có giúp không?"""
+    gop = runs.merge(reqs[['request_id', 'loai']], on='request_id')
+    gop['ok'] = (gop['status'] == 'ok').astype(float)
+    return gop.pivot_table(index='loai', columns='attempt', values='ok', aggfunc='mean')
+
+
 if __name__ == '__main__':
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
@@ -98,7 +121,14 @@ if __name__ == '__main__':
     ket_qua = mo_hinh(runs, reqs)
     for ten, gia_tri in ket_qua.items():
         print(f'{ten:12s} {gia_tri:>14,.0f}')
-    # TODO CP1 · Nhiệm vụ A3: tính lại theo từng giá trị của cột loai.
+    # Nhiệm vụ A3: tính lại theo từng giá trị của cột loai.
+    print('\nA3 · Theo loại yêu cầu (chi phí mỗi việc thành công là simulated)')
+    print(f"{'loai':10s} {'so_yc':>6s} {'ti_le_tc':>9s} {'lan/yc':>7s} {'cps':>8s} {'x12000':>7s}")
+    for loai, d in bang_theo_loai(runs, reqs).iterrows():
+        print(f"{loai:10s} {d.so_yc:6.0f} {d.ti_le_tc:9.1%} {d.lan_chay_moi_yc:7.2f} "
+              f"{d.cps:8,.0f} {d.so_voi_baseline:6.2f}x")
+    print('\nTỉ lệ ok theo lần thử (attempt)')
+    print(ti_le_ok_theo_lan_thu(runs, reqs).round(3).to_string())
     # TODO CP2 · Nhiệm vụ B: đổi từng yếu tố, ghi vào bảng độ nhạy.
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
