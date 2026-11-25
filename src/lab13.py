@@ -157,6 +157,34 @@ def bang_do_nhay(runs, reqs, kich_ban=KICH_BAN_B1):
     return goc, ket_qua
 
 
+# ---------- Nhiệm vụ B2 · Đổi một cặp và xếp hạng ----------
+# Gom các kịch bản B1 theo yếu tố để xếp hạng theo mức thay đổi lớn nhất (trị tuyệt đối).
+YEU_TO_B1 = {
+    'Số ca làm lại':      ['Số ca làm lại gấp đôi', 'Số ca làm lại giảm một nửa'],
+    'Tỉ lệ xem lại':      ['Tỉ lệ xem lại gấp đôi', 'Tỉ lệ xem lại giảm một nửa'],
+    'Lương nhân viên':    ['Lương nhân viên tăng 25%'],
+    'Giới hạn chạy lại':  ['Chỉ cho chạy tối đa 2 lần', 'Chỉ cho chạy 1 lần'],
+    'Giá token':          ['Giá token gấp đôi', 'Giá token giảm một nửa'],
+}
+
+
+def doi_mot_cap(runs, reqs):
+    """Giá token gấp đôi cùng lúc tỉ lệ xem lại gấp đôi.
+    Trả về (cps, % thay đổi, tổng % của hai tác động riêng) để kiểm tra tính cộng tuyến tính."""
+    goc = mo_hinh(runs, reqs)['cps']
+    cap = mo_hinh(runs, reqs, gia_vao=GIA_VAO * 2, gia_ra=GIA_RA * 2, he_so_xem_lai=2)['cps']
+    rieng = [mo_hinh(runs, reqs, **KICH_BAN_B1[ten])['cps'] - goc
+             for ten in ('Giá token gấp đôi', 'Tỉ lệ xem lại gấp đôi')]
+    return cap, (cap / goc - 1) * 100, sum(rieng) / goc * 100
+
+
+def xep_hang_yeu_to(b1):
+    """b1: list (tên, cps, % thay đổi) từ bang_do_nhay. Trả về [(yếu tố, % lớn nhất)] giảm dần."""
+    thay_doi = {ten: pct for ten, _, pct in b1}
+    hang = [(yt, max(abs(thay_doi[k]) for k in ds)) for yt, ds in YEU_TO_B1.items()]
+    return sorted(hang, key=lambda x: x[1], reverse=True)
+
+
 if __name__ == '__main__':
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
@@ -186,7 +214,15 @@ if __name__ == '__main__':
     print(f"{'Gốc (A2)':28s} {goc:8,.0f}")
     for ten, cps, thay_doi in b1:
         print(f'{ten:28s} {cps:8,.0f} {thay_doi:+7.1f}%')
-    # TODO CP2 · Nhiệm vụ B2–B4: đổi một cặp, giới hạn chạy lại, xem lại 100%.
+
+    # Nhiệm vụ B2: đổi một cặp và xếp hạng.
+    cap, pct_cap, pct_tong = doi_mot_cap(runs, reqs)
+    print('\nB2 · Giá token gấp đôi + tỉ lệ xem lại gấp đôi (simulated)')
+    print(f'{cap:,.0f} đ ({pct_cap:+.1f}%); tổng hai tác động riêng {pct_tong:+.1f}%')
+    print('Xếp hạng yếu tố theo mức thay đổi lớn nhất:')
+    for i, (yt, pct) in enumerate(xep_hang_yeu_to(b1), 1):
+        print(f'  {i}. {yt:20s} {pct:5.1f}%')
+    # TODO CP2 · Nhiệm vụ B3–B4: giới hạn chạy lại, xem lại 100%.
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
     #   from statsmodels.stats.power import NormalIndPower
