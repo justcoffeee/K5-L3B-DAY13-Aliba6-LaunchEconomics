@@ -71,14 +71,14 @@ Số tính bằng `src/lab13.py`. Mọi con số tính từ cột `_simulated` g
 
 | Giới hạn | Tổng chi phí trợ lý | Số yêu cầu không thành công | Chi phí cả hệ thống | Chi phí mỗi việc thành công |
 | --- | ---: | ---: | ---: | ---: |
-| 1 lần | 3.621.781 đ [simulated] | 319 | 7.449.781 đ | 4.111 đ [simulated] |
-| 2 lần | 4.093.220 đ [simulated] | 234 | 6.901.220 đ | 4.237 đ [simulated] |
-| 3 lần | 4.373.585 đ [simulated] | 222 | 7.037.585 đ | 4.472 đ [simulated] |
+| 1 lần | 3.621.781 đ [simulated] | 319 | 7.449.781 đ [simulated] | 4.111 đ [simulated] |
+| 2 lần | 4.093.220 đ [simulated] | 234 | 6.901.220 đ [simulated] | 4.237 đ [simulated] |
+| 3 lần | 4.373.585 đ [simulated] | 222 | 7.037.585 đ [simulated] | 4.472 đ [simulated] |
 
-- Giới hạn rẻ nhất cho công ty là 2 lần (chi phí cả hệ thống 6.901.220 đ, thấp hơn mức 7.449.781 đ của 1 lần và 7.037.585 đ của 3 lần).
+- Giới hạn rẻ nhất cho công ty là 2 lần (chi phí cả hệ thống 6.901.220 đ [simulated], thấp hơn mức 7.449.781 đ [simulated] của 1 lần và 7.037.585 đ [simulated] của 3 lần).
 - Giới hạn rẻ nhất toàn hệ thống (2 lần) không trùng với giới hạn cho chi phí mỗi việc thành công thấp nhất (1 lần: 4.111 đ [simulated]), do khi chỉ chạy 1 lần thì có tới 319 yêu cầu hỏng bị đẩy sang nhân viên làm thủ công (319 × 12.000 đ = 3.828.000 đ).
 
 ## B4 · Nếu phải xem lại tất cả
 
 - Chi phí mỗi việc thành công khi xem lại 100% trong phạm vi `noi_dia` + `hang_nang` là 11.743 đ [simulated] (0,98x so với 12.000 đ) nếu thời gian làm lại là 9 phút, và lên tới 12.415 đ [simulated] (1,03x) nếu làm lại mất 15,3 phút.
-- Kết quả này chỉ ra pilot bắt buộc phải xây dựng và kiểm chứng được bộ lọc rủi ro chính xác để chỉ xem lại một tỉ lệ nhỏ (như 30%), tránh xem lại tràn lan làm chi phí vượt cả mốc làm tay 12.000 đ.
+- Kết quả này chỉ ra pilot bắt buộc phải kiểm soát thời gian xem lại dưới mức hoà vốn 5,1 phút/yêu cầu (với 9 phút làm lại) và 4,8 phút/yêu cầu (với 15,3 phút làm lại), tránh xem lại kéo dài làm chi phí vượt mốc tự làm 12.000 đ.

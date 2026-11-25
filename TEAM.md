@@ -12,7 +12,7 @@
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 | Phạm Hoàng Huy (nhóm trưởng) | 2A202603836 | | [justcoffeee](https://github.com/justcoffeee) | Người viết code (trước giải lao) → chỉ số, event, rủi ro |
-|   2 | Lê Thanh Tùng | 2A202603819 | | [griin-03](https://github.com/griin-03) | Người kiểm số → người viết code (sau giải lao) |
+|   2 | Lê Thanh Tùng | 2A202603819 | lethanhtung6803@gmail.com | [griin-03](https://github.com/griin-03) | Người kiểm số → người viết code (sau giải lao) |
 |   3 | Cấn Xuân Nghĩa | 2A202603805 | | [xuannghia2](https://github.com/xuannghia2) | Người gắn nhãn 1 |
 |   4 | Nguyễn Mạnh Hùng | 2A202603852 | | [HungLunnn](https://github.com/HungLunnn) | Người gắn nhãn 2, kiêm giữ hồ sơ |
 
@@ -57,15 +57,19 @@ Mỗi người một mục dưới đây (phân công dự kiến, cập nhật 
 ### Phần việc phụ trách
 
 - CP1–CP2: tính tay đối chiếu, điền `report/team/bang_chi_phi.md`
-- Sau giải lao: viết phần D1 trong `src/lab13.py`, điền `report/team/pilot_plan.yaml`
+- Sau giải lao: viết phần D1 trong `src/lab13.py`, hoàn thiện `report/team/pilot_plan.yaml`
 
 ### Đóng góp cụ thể
 
--
+- Hoàn thiện toàn bộ bảng chi phí A1–A4, B1–B4 trong `report/team/bang_chi_phi.md`, đảm bảo nhãn `[simulated]` tại A2, A3, A4, B1, B2, B3, B4 và câu trả lời $\le 3$ dòng có số liệu.
+- Viết code D1 trong `src/lab13.py` tính cỡ mẫu 5 kịch bản a–e bằng `NormalDist`.
+- Tham gia rà soát và hoàn thiện `report/team/pilot_plan.yaml` theo cách chia cụm nhân viên $20 + 20$ (`unit: staff`), xác định MDE $0,06$ và 4 luật dừng chuẩn.
+- Cập nhật báo cáo cá nhân `report/team/2A202603819_LeThanhTung.md`.
 
 ### Bằng chứng
 
--
+- Commit `e729b74` và commit cập nhật B3/B4, `TEAM.md`
+- Các file: `report/team/bang_chi_phi.md`, `src/lab13.py`, `report/team/pilot_plan.yaml`, `report/team/2A202603819_LeThanhTung.md`
 
 ## CanXuanNghia-2A202603805
 
