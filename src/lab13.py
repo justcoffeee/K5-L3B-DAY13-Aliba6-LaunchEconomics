@@ -282,6 +282,26 @@ if __name__ == '__main__':
         print(f"{nhan:28s} xem {d['so_xem']} yc · làm lại {d['so_lam_lai']} ca · "
               f"token+tool {d['token_tool']:,.0f} · tổng {d['tong']:,.0f} → "
               f"{d['cps']:,.0f} đ = {d['so_voi_baseline']:.2f}x · hoà vốn ≤ {d['phut_hoa_von']:.1f} phút xem/yc")
-    # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
-    #   from statsmodels.stats.proportion import proportion_effectsize
-    #   from statsmodels.stats.power import NormalIndPower
+    # Nhiệm vụ D · Cỡ mẫu (CP4)
+    print("\nD1 · Cỡ mẫu pilot")
+    from statistics import NormalDist
+    def co_mau(p1, p2, alpha=0.05, power=0.8):
+        za = NormalDist().inv_cdf(1 - alpha / 2)
+        zb = NormalDist().inv_cdf(power)
+        pb = (p1 + p2) / 2
+        return math.ceil((za * math.sqrt(2 * pb * (1 - pb)) + zb * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2 / (p2 - p1) ** 2)
+
+    n_a = co_mau(0.70, 0.75)
+    print(f"a) Chia theo yêu cầu (+5%): {n_a} yêu cầu mỗi nhóm")
+    de_b = 1 + (75 - 1) * 0.02
+    n_b = math.ceil(n_a * de_b)
+    staff_per_arm_b = math.ceil(n_b / 75)
+    print(f"b) Theo nhân viên m=75: DE={de_b:.2f} -> {n_b} yêu cầu mỗi nhóm -> {staff_per_arm_b} NV mỗi nhóm (tổng {staff_per_arm_b * 2} > 40: KHÔNG ĐỦ)")
+    max_eff_c = 20 / 0.02
+    print(f"c) 20 nhân viên mỗi nhóm: n_eff tối đa = c / ICC = 20 / 0.02 = {max_eff_c:,.0f} < {n_a} (KHÔNG ĐẠT MẪU 5 ĐIỂM)")
+    max_eff_d = 6 / 0.02
+    print(f"d) 6 depot mỗi nhóm: n_eff tối đa = c / ICC = 6 / 0.02 = {max_eff_d:,.0f} < {n_a} (KHÔNG ĐẠT MẪU 5 ĐIỂM)")
+    n_e = co_mau(0.70, 0.76)
+    m_min = math.ceil(0.98 * n_e / (20 - 0.02 * n_e))
+    de_e = 1 + (m_min - 1) * 0.02
+    print(f"e) Mức chênh 6 điểm (+6%): n_per_arm={n_e} -> m >= {m_min} yc/người (DE={de_e:.2f})")
