@@ -12,6 +12,9 @@ GIA_RA = 130        # đồng cho 1.000 token đầu ra
 GIA_TOOL = 15       # đồng cho 1 lần gọi tool
 LUONG_PHUT = 2000   # đồng cho 1 phút của nhân viên (đã gồm bảo hiểm, văn phòng)
 BASELINE = 12000    # đồng cho 1 yêu cầu khi nhân viên tự làm (6 phút)
+CO_DINH_THANG = 40_000_000   # chi phí cố định của trợ lý, đồng mỗi tháng
+KHOI_LUONG_THANG = 45_000    # yêu cầu hoàn phí mỗi tháng ở quy mô đầy đủ
+PHAM_VI_PILOT = ['noi_dia', 'hang_nang']   # chọn từ kết quả A3
 
 
 # ---------- Nhiệm vụ A1 · Kinh tế của việc chạy lại ----------
@@ -114,6 +117,21 @@ def ti_le_ok_theo_lan_thu(runs, reqs):
     return gop.pivot_table(index='loai', columns='attempt', values='ok', aggfunc='mean')
 
 
+# ---------- Nhiệm vụ A4 · Chi phí cố định ----------
+def chi_phi_co_dinh(runs, reqs, pham_vi=PHAM_VI_PILOT, co_dinh=CO_DINH_THANG,
+                    khoi_luong=KHOI_LUONG_THANG):
+    """Cộng chi phí cố định vào chi phí mỗi việc thành công của phạm vi pilot.
+    Số việc thành công mỗi tháng = khối lượng × (việc thành công trong phạm vi ÷ cả mẫu),
+    vì phạm vi chỉ là một phần của toàn bộ yêu cầu."""
+    nhom = reqs[reqs['loai'].isin(pham_vi)]
+    kq = mo_hinh(runs, nhom)
+    tc_thang = khoi_luong * kq['thanh_cong'] / len(reqs)
+    co_dinh_moi_viec = co_dinh / tc_thang
+    tong = kq['cps'] + co_dinh_moi_viec
+    return dict(khoi_luong=khoi_luong, tc_thang=tc_thang, co_dinh_moi_viec=co_dinh_moi_viec,
+                cps_pham_vi=kq['cps'], cps_cong_co_dinh=tong, so_voi_baseline=tong / BASELINE)
+
+
 if __name__ == '__main__':
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
@@ -129,6 +147,14 @@ if __name__ == '__main__':
               f"{d.cps:8,.0f} {d.so_voi_baseline:6.2f}x")
     print('\nTỉ lệ ok theo lần thử (attempt)')
     print(ti_le_ok_theo_lan_thu(runs, reqs).round(3).to_string())
+
+    # Nhiệm vụ A4: cộng chi phí cố định 40 triệu đ/tháng cho phạm vi noi_dia + hang_nang.
+    print(f"\nA4 · Chi phí cố định, phạm vi {' + '.join(PHAM_VI_PILOT)} (simulated)")
+    print(f"{'khoi_luong':>10s} {'tc/thang':>9s} {'co_dinh':>8s} {'cps':>7s} {'cps+cd':>7s} {'x12000':>7s}")
+    for kl in (KHOI_LUONG_THANG, KHOI_LUONG_THANG // 2):
+        d = chi_phi_co_dinh(runs, reqs, khoi_luong=kl)
+        print(f"{kl:>10,} {d['tc_thang']:>9,.0f} {d['co_dinh_moi_viec']:>8,.0f} "
+              f"{d['cps_pham_vi']:>7,.0f} {d['cps_cong_co_dinh']:>7,.0f} {d['so_voi_baseline']:>6.2f}x")
     # TODO CP2 · Nhiệm vụ B: đổi từng yếu tố, ghi vào bảng độ nhạy.
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
