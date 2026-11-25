@@ -58,7 +58,37 @@ def mo_hinh(runs, reqs, gia_vao=26, gia_ra=130, gia_tool=15, luong_phut=2000,
     - thanh_cong: số yêu cầu có ket_qua == 'thanh_cong'.
     - Các tham số giá/hệ số/max_lan_chay dùng cho Nhiệm vụ B (độ nhạy, giới hạn số lần chạy); giữ mặc định ở A2.
     """
-    raise NotImplementedError('VIẾT Ở ĐÂY')
+    reqs = reqs.copy()
+    # Chỉ giữ các lần chạy thuộc nhóm yêu cầu đang xét (để A3 gọi lại theo từng loại).
+    runs = runs[runs['request_id'].isin(reqs['request_id'])]
+
+    if max_lan_chay is not None:
+        # B1, B3: bỏ các lần chạy vượt giới hạn; yêu cầu cần nhiều lần hơn coi như chuyển nhân viên,
+        # khi đó không còn phút xem lại / làm lại của trợ lý.
+        runs = runs[runs['attempt'] <= max_lan_chay]
+        vuot = reqs['so_lan_chay'] > max_lan_chay
+        reqs.loc[vuot, 'ket_qua'] = 'chuyen_nhan_vien'
+        reqs.loc[vuot, ['phut_xem_lai_simulated', 'phut_lam_lai_simulated']] = 0
+
+    # Tử số: MỌI lần chạy, kể cả lần lỗi. Giá token tính cho 1.000 token.
+    tien_moi_lan = (runs['tokens_in'] / 1000 * gia_vao
+                    + runs['tokens_out'] / 1000 * gia_ra
+                    + runs['tool_calls'] * gia_tool)
+    token = (runs['tokens_in'] / 1000 * gia_vao + runs['tokens_out'] / 1000 * gia_ra).sum()
+    tool = (runs['tool_calls'] * gia_tool).sum()
+    chay_lai = tien_moi_lan[runs['attempt'] > 1].sum()   # phần của lần chạy thứ 2 và 3
+
+    # Giờ nhân viên — số GIẢ LẬP (simulated).
+    xem_lai = reqs['phut_xem_lai_simulated'].sum() * luong_phut * he_so_xem_lai
+    lam_lai = reqs['phut_lam_lai_simulated'].sum() * luong_phut * he_so_lam_lai
+
+    tong = token + tool + xem_lai + lam_lai
+    # Mẫu số: chỉ yêu cầu thành công.
+    thanh_cong = int((reqs['ket_qua'] == 'thanh_cong').sum())
+    return dict(token=token, tool=tool, chay_lai=chay_lai,
+                xem_lai=xem_lai, lam_lai=lam_lai, tong=tong,
+                thanh_cong=thanh_cong, cps=tong / thanh_cong,
+                hoa_don_moi_yc=(token + tool) / len(reqs))
 
 
 if __name__ == '__main__':
