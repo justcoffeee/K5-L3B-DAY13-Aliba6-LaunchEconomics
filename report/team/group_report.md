@@ -17,7 +17,7 @@ Nhóm thực hiện đánh giá kinh tế triển khai (Launch Economics) và l�
 - **Nhiệm vụ A & B ([`src/lab13.py`](../../src/lab13.py), [`bang_chi_phi.md`](bang_chi_phi.md)):** Hoàn thành 3 phép thử A1 đạt (`1,20 · 1,25 · 1,25`), viết hàm `mo_hinh` tính đủ token, tool và thời gian nhân viên (xem lại, làm lại), tách theo 4 loại yêu cầu (`noi_dia`, `hang_nang`, `quoc_te`, `doi_tac`), cộng chi phí cố định 40 triệu đ/tháng, và chạy 9 kịch bản độ nhạy B1–B4.
 - **Nhiệm vụ C ([`bang_loi.md`](bang_loi.md)):** Hoàn thành và chốt hai bộ nhãn 20/20 ca theo 5 loại Google PAIR (đồng thuận `20/20 = 100%`), kèm căn cứ phân loại 20 ca và bảng khắc phục 5 ca (`1, 20, 3, 19, 17`) có cách phát hiện đo được và vai trò phụ trách.
 - **Nhiệm vụ D ([`pilot_plan.yaml`](pilot_plan.yaml)):** Tính 5 câu D1 bằng `NormalDist`, phân tích đánh đổi và chọn chia cụm theo nhân viên `20 + 20` (`unit: staff`), phạm vi `noi_dia` + `hang_nang`, thiết lập 4 luật dừng đủ 4 vế `NẾU – TRONG – THÌ – KHÔNG THÌ`.
-- **Nhiệm vụ E ([`chi_so.md`](chi_so.md), [`ho_so_launch_v0.md`](ho_so_launch_v0.md)):** Tính thử 3 chỉ số trên dữ liệu chạy thử, đề xuất 2 chỉ số mới, thiết kế 10 event có `trace_id`, lập 4 dòng rủi ro kinh tế và tổng hợp thành hồ sơ 1 trang để trình duyệt chéo Gate 2a ([`phieu_cham.md`](phieu_cham.md)).
+- **Nhiệm vụ E ([`chi_so.md`](chi_so.md), [`ho_so_launch_v0.md`](ho_so_launch_v0.md)):** Tính thử 3 chỉ số trên dữ liệu chạy thử, đề xuất 2 chỉ số mới, thiết kế 12 event có `trace_id`, lập 4 dòng rủi ro kinh tế và tổng hợp thành hồ sơ 1 trang để trình duyệt chéo Gate 2a ([`phieu_cham.md`](phieu_cham.md)).
 
 ## 4. Kết quả
 
@@ -39,7 +39,7 @@ Chi tiết đóng góp của từng thành viên nằm trong [TEAM.md](../../TEA
 
 ## 7. Hạn chế và hướng cải thiện
 
-- Thời gian xem lại và làm lại hiện dùng cột `_simulated`; cần bật đủ `10 event` có `trace_id` để đo thật ngay từ tuần 1 của pilot.
+- Thời gian xem lại và làm lại hiện dùng cột `_simulated`; cần bật đủ `12 event` có `trace_id` để đo thật ngay từ tuần 1 của pilot.
 - Cần hoàn thiện đối chiếu hai bộ nhãn và bảng khắc phục 5 ca trong `bang_loi.md`, đồng thời triển khai khoá chống hoàn trùng (`idempotency_key`) trước khi chạy thử nghiệm có kiểm soát.
 
 ## 8. Tài liệu tham khảo

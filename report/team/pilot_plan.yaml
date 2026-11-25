@@ -28,7 +28,7 @@
 
 pilot:
   owner: "Giám đốc vận hành LogiX-VN"
-  scope: "Chỉ noi_dia và hang_nang (0,22× và 0,69× so với 12.000 đ, simulated) tại cả 12 depot với 40 nhân viên CSKH; loại quoc_te (1,88×, thành công 27,3%) và doi_tac (0,85×, điều khoản riêng)"
+  scope: "Chỉ noi_dia và hang_nang (0,22× và 0,69× so với 12.000 đ, simulated) tại cả 12 depot với 40 nhân viên CSKH; loại quoc_te (1,88×, thành công 27,3%) và doi_tac (0,85×, điều khoản riêng); chạy tối đa 2 lần mỗi yêu cầu vì rẻ nhất cho cả hệ thống (6.901.220 đ so với 7.037.585 đ khi 3 lần, simulated)"
   assignment:
     unit: "staff"
     control_share: 0.5
@@ -49,7 +49,7 @@ pilot:
     predeclared: "Có: chỉ số chính, mde 0,06, bốn luật dừng và ngày quyết định 2027-01-11 chốt trước ngày bắt đầu 2026-12-07"
   stop_rules:
     - "NẾU tỉ lệ mở lại 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm trở lên, hoặc vượt 6% (hiện tại 4,25%), hoặc có từ 1 ca hoàn tiền trùng TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và chuyển toàn bộ yêu cầu về nhân viên KHÔNG THÌ không được chuyển sang bước rollout tiếp theo"
-    - "NẾU chi phí mỗi việc thành công đo thật vượt 8.000 đ (đợt chạy thử 3.414 đ trong phạm vi, simulated) TRONG 2 tuần liên tiếp THÌ PM trợ lý hoàn phí thu hẹp về noi_dia và giới hạn tối đa 2 lần chạy trong 3 ngày KHÔNG THÌ không được mở lại hang_nang"
+    - "NẾU chi phí mỗi việc thành công đo thật vượt 8.000 đ (đợt chạy thử 3.414 đ trong phạm vi, simulated) TRONG 2 tuần liên tiếp THÌ PM trợ lý hoàn phí thu hẹp về noi_dia trong 3 ngày và rà 20 trace đắt nhất KHÔNG THÌ không được mở lại hang_nang"
     - "NẾU tỉ lệ bỏ qua gợi ý (sửa + bỏ chia số được xem lại) vượt 40% (đợt chạy thử 27,12%) TRONG 1 tuần THÌ Trưởng nhóm CSKH phỏng vấn 5 nhân viên và PM rà 20 trace bị bỏ trong 3 ngày KHÔNG THÌ không được chuyển sang bước rollout tiếp theo"
     - "NẾU tỉ lệ yêu cầu phải xem lại còn trên 50% hoặc phút xem lại trung bình trên 5 phút (hoà vốn 5,1 phút, simulated) TRONG tuần cuối của bước 0.25 THÌ Trưởng nhóm CSKH giữ rollout ở 0.25 và lập kế hoạch giảm xem lại theo bậc KHÔNG THÌ không được tăng lên bước 0.50"
   interim_looks: "chỉ kiểm tra chỉ số an toàn"

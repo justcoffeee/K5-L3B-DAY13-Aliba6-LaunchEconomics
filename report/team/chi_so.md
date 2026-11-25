@@ -16,7 +16,7 @@ Chỉ số chính trong đợt chạy thử là 82,83%. Không viết "trợ lý
 
 ## Danh sách event
 
-Mười event, mỗi event có `trace_id` để nối với trace của agent.
+Mười hai event, mỗi event có `trace_id` để nối với trace của agent. Hai event cuối được thêm để đo cách khắc phục ca 1 và ca 3 trong `bang_loi.md`.
 
 | Event | Ai tạo | Thuộc tính chính | Thời điểm |
 | --- | --- | --- | --- |
@@ -25,11 +25,13 @@ Mười event, mỗi event có `trace_id` để nối với trace của agent.
 | `agent_suggestion_shown` | Giao diện nhân viên | staff_id, so_tien_de_xuat, trace_id | Khi gợi ý hiện ra cho nhân viên |
 | `staff_review_decision` | Nhân viên | quyet_dinh (giu / sua / bo), phut_xem_lai đo thật, trace_id | Khi bấm gửi, sửa hoặc bỏ |
 | `staff_rework_completed` | Nhân viên | phut_lam_lai đo thật, ly_do, trace_id | Khi làm lại xong |
-| `handoff_to_staff` | Agent | reason (het_lan_chay / thieu_du_lieu / ngoai_pham_vi), tom_tat, trace_id | Khi chuyển yêu cầu cho nhân viên |
+| `handoff_to_staff` | Agent | reason (het_lan_chay / thieu_du_lieu / ngoai_pham_vi / ngoai_cua_so_du_lieu), tom_tat, trace_id | Khi chuyển yêu cầu cho nhân viên |
 | `refund_ledger_write` | Dịch vụ sổ cái | idempotency_key, so_tien, ket_qua (ok / loi), trace_id | Khi ghi lệnh hoàn vào sổ cái |
 | `ticket_closed` | Hệ thống ticket | closed_at, trace_id | Khi yêu cầu được đóng |
-| `ticket_reopened` | Khách | reopened_at, ly_do, trace_id | Khi khách mở lại yêu cầu |
-| `audit_sample_checked` | Kế toán | so_tien_da_hoan, so_tien_dung, trace_id | Hằng tuần, mẫu 100 đơn |
+| `ticket_reopened` | Khách | reopened_at, reason (vd. nham_noi_nhan, sai_so_tien), trace_id | Khi khách mở lại yêu cầu |
+| `audit_sample_checked` | Kế toán | so_tien_da_hoan, so_tien_dung, policy_version, effective_date, trace_id | Hằng tuần, mẫu 100 đơn |
+| `refund_account_validation` | Ứng dụng khách | bank_code, valid, reason (không ghi nguyên số tài khoản), trace_id | Trước mỗi lệnh hoàn (ca 1) |
+| `refund_destination_acknowledged` | Ứng dụng khách | destination (vi_logix / ngan_hang), acknowledged, trace_id | Trước khi khách xác nhận hoàn (ca 3) |
 
 **Kiểm tra chéo:** với mỗi chỉ số ở bảng E1, ghi event dùng để tính. Chỉ số nào không tính được từ danh sách event thì chưa đo được.
 
@@ -41,7 +43,9 @@ Mười event, mỗi event có `trace_id` để nối với trace của agent.
 - Chi phí mỗi việc thành công đo thật (cho luật dừng chi phí): `agent_run_completed` (token, tool) + `staff_review_decision` và `staff_rework_completed` (phút thật, thay cho cột simulated) + `ticket_closed` / `ticket_reopened` (việc thành công).
 - Chống hoàn trùng (ca 20) và báo "đã hoàn" khi sổ cái lỗi (ca 7): `refund_ledger_write` theo `idempotency_key` và `ket_qua`.
 
-Cả năm chỉ số và luật dừng chi phí đều tính được từ danh sách trên.
+- Bảng khắc phục 5 ca (`bang_loi.md`): ca 1 `refund_account_validation`; ca 20 `refund_ledger_write`; ca 3 `refund_destination_acknowledged` + `ticket_reopened` (reason = nham_noi_nhan); ca 19 `handoff_to_staff` (reason = ngoai_cua_so_du_lieu); ca 17 `audit_sample_checked`.
+
+Cả năm chỉ số, luật dừng chi phí và cách phát hiện của 5 ca khắc phục đều tính được từ danh sách trên.
 
 ## E2 · Rủi ro kinh tế
 
