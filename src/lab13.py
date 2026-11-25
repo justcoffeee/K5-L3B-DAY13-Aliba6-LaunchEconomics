@@ -132,6 +132,31 @@ def chi_phi_co_dinh(runs, reqs, pham_vi=PHAM_VI_PILOT, co_dinh=CO_DINH_THANG,
                 cps_pham_vi=kq['cps'], cps_cong_co_dinh=tong, so_voi_baseline=tong / BASELINE)
 
 
+# ---------- Nhiệm vụ B1 · Đổi từng yếu tố ----------
+# Mỗi kịch bản chỉ đổi MỘT tham số của mo_hinh, các tham số khác giữ như A2.
+KICH_BAN_B1 = {
+    'Giá token gấp đôi':          dict(gia_vao=GIA_VAO * 2, gia_ra=GIA_RA * 2),
+    'Giá token giảm một nửa':     dict(gia_vao=GIA_VAO / 2, gia_ra=GIA_RA / 2),
+    'Tỉ lệ xem lại gấp đôi':      dict(he_so_xem_lai=2),
+    'Tỉ lệ xem lại giảm một nửa': dict(he_so_xem_lai=0.5),
+    'Số ca làm lại gấp đôi':      dict(he_so_lam_lai=2),
+    'Số ca làm lại giảm một nửa': dict(he_so_lam_lai=0.5),
+    'Lương nhân viên tăng 25%':   dict(luong_phut=LUONG_PHUT * 1.25),
+    'Chỉ cho chạy tối đa 2 lần':  dict(max_lan_chay=2),
+    'Chỉ cho chạy 1 lần':         dict(max_lan_chay=1),
+}
+
+
+def bang_do_nhay(runs, reqs, kich_ban=KICH_BAN_B1):
+    """Trả về list (tên, cps, % thay đổi so với gốc A2). Mọi cps đều là simulated."""
+    goc = mo_hinh(runs, reqs)['cps']
+    ket_qua = []
+    for ten, tham_so in kich_ban.items():
+        cps = mo_hinh(runs, reqs, **tham_so)['cps']
+        ket_qua.append((ten, cps, (cps / goc - 1) * 100))
+    return goc, ket_qua
+
+
 if __name__ == '__main__':
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
@@ -155,7 +180,13 @@ if __name__ == '__main__':
         d = chi_phi_co_dinh(runs, reqs, khoi_luong=kl)
         print(f"{kl:>10,} {d['tc_thang']:>9,.0f} {d['co_dinh_moi_viec']:>8,.0f} "
               f"{d['cps_pham_vi']:>7,.0f} {d['cps_cong_co_dinh']:>7,.0f} {d['so_voi_baseline']:>6.2f}x")
-    # TODO CP2 · Nhiệm vụ B: đổi từng yếu tố, ghi vào bảng độ nhạy.
+    # Nhiệm vụ B1: đổi từng yếu tố, ghi vào bảng độ nhạy.
+    goc, b1 = bang_do_nhay(runs, reqs)
+    print('\nB1 · Độ nhạy, đổi từng yếu tố (simulated)')
+    print(f"{'Gốc (A2)':28s} {goc:8,.0f}")
+    for ten, cps, thay_doi in b1:
+        print(f'{ten:28s} {cps:8,.0f} {thay_doi:+7.1f}%')
+    # TODO CP2 · Nhiệm vụ B2–B4: đổi một cặp, giới hạn chạy lại, xem lại 100%.
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
     #   from statsmodels.stats.power import NormalIndPower
