@@ -5,7 +5,7 @@
 - Tên nhóm: Aliba6
 - Lớp: L3B
 - Repo nhóm: `K5-L3B-DAY13-Aliba6-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/justcoffeee/K5-L3B-DAY13-Aliba6-LaunchEconomics · `main` · (điền khi chốt)
+- URL repo, nhánh nộp, commit chốt: https://github.com/justcoffeee/K5-L3B-DAY13-Aliba6-LaunchEconomics · `main` · [`91175e9`](https://github.com/justcoffeee/K5-L3B-DAY13-Aliba6-LaunchEconomics/commit/91175e95c53f3bbf75a8134fb5ef8877e80bd26d) (commit chốt nội dung; commit sau chỉ ghi mã này)
 
 ## Thành viên
 
