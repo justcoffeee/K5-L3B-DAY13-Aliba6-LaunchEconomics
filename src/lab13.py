@@ -320,3 +320,16 @@ if __name__ == '__main__':
           f"({reqs['mo_lai_trong_7_ngay'].sum()}/{len(reqs)}); "
           f"trong phạm vi pilot {pv['mo_lai_trong_7_ngay'].mean():.2%} "
           f"({pv['mo_lai_trong_7_ngay'].sum()}/{len(pv)})")
+
+    # Nhiệm vụ E1: tính thử ba chỉ số trên 1.200 yêu cầu (cả mẫu) và trong phạm vi pilot.
+    print('\nE1 · Ba chỉ số (đợt chạy thử, không có đối chứng)')
+    for nhan, d in (('Cả mẫu', reqs), (' + '.join(PHAM_VI_PILOT), pv)):
+        chinh = (d['dong_trong_24h'] == 1) & (d['mo_lai_trong_7_ngay'] == 0)
+        xem = d[d['duoc_xem_lai'] == 1]
+        bo_qua = xem['quyet_dinh_xem_lai'].isin(['sua', 'bo'])
+        an_toan = d['mo_lai_trong_7_ngay'] == 1
+        print(f"{nhan:22s} chính {chinh.mean():.2%} ({chinh.sum()}/{len(d)}) · "
+              f"bỏ qua gợi ý {bo_qua.mean():.2%} ({bo_qua.sum()}/{len(xem)}) · "
+              f"lỗi lọt đến khách {an_toan.mean():.2%} ({an_toan.sum()}/{len(d)})")
+    lam_lai_pv = (pv['ket_qua'] == 'lam_lai')
+    print(f"Tỉ lệ làm lại trong phạm vi pilot: {lam_lai_pv.mean():.2%} ({lam_lai_pv.sum()}/{len(pv)})")
