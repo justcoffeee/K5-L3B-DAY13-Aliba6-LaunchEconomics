@@ -46,11 +46,15 @@ Mỗi người một mục dưới đây (phân công dự kiến, cập nhật 
 
 ### Đóng góp cụ thể
 
--
+- Tạo repo nhóm, mời thành viên, chia vai, điền `TEAM.md`.
+- `src/lab13.py`: A1 (ba phép thử ĐẠT), `mo_hinh` (4.472 đ/việc [simulated]), A3, A4, B1–B4; bổ sung in power 0,64 và tỉ lệ mở lại 4,25% vào phần D1; tính ba chỉ số E1.
+- `report/team/chi_so.md`: ba chỉ số (82,83% · 27,12% · 4,25%), hai chỉ số đề xuất, mười event có `trace_id`, bốn dòng rủi ro kinh tế.
+- Sửa `report/team/pilot_plan.yaml` theo cách chia nhân viên 20 + 20 và bốn luật dừng.
 
 ### Bằng chứng
 
--
+- Commit `95eeb1e`, `bfa61a1`, `96f50c5`, `6ec17cf` (CP1); `6f197c7`, `7042493`, `8df23e3`, `b4af985` (CP2); `8ce01ee`, `133215d` (CP4); `816cc16` (CP5).
+- Báo cáo cá nhân: `report/team/2A202603836_PhamHoangHuy.md`.
 
 ## LeThanhTung-2A202603819
 
