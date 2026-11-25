@@ -198,6 +198,31 @@ def chi_phi_he_thong(runs, reqs, gioi_han=(1, 2, 3)):
     return dong
 
 
+# ---------- Nhiệm vụ B4 · Nếu phải xem lại tất cả ----------
+def xem_lai_toan_bo(runs, reqs, pham_vi=PHAM_VI_PILOT, phut_xem=5, phut_lam_lai=9,
+                    gia_vao=GIA_VAO, gia_ra=GIA_RA, gia_tool=GIA_TOOL, luong_phut=LUONG_PHUT):
+    """Tuần đầu pilot: nhân viên xem lại MỌI câu trả lời trước khi gửi.
+    - Yêu cầu có ít nhất một lần chạy ok được xem lại phut_xem phút.
+    - Ca lam_lai bị bắt trước khi gửi, làm lại phut_lam_lai phút.
+    - Token + tool tính trên mọi lần chạy thuộc phạm vi.
+    Trả về dict; phut_hoa_von là số phút xem lại tối đa để cps không vượt BASELINE."""
+    nhom = reqs[reqs['loai'].isin(pham_vi)]
+    r = runs[runs['request_id'].isin(nhom['request_id'])]
+    token_tool = (r['tokens_in'] / 1000 * gia_vao + r['tokens_out'] / 1000 * gia_ra
+                  + r['tool_calls'] * gia_tool).sum()
+    so_xem = r.loc[r['status'] == 'ok', 'request_id'].nunique()
+    so_lam_lai = int((nhom['ket_qua'] == 'lam_lai').sum())
+    thanh_cong = int((nhom['ket_qua'] == 'thanh_cong').sum())
+    tien_xem = so_xem * phut_xem * luong_phut
+    tien_lam_lai = so_lam_lai * phut_lam_lai * luong_phut
+    tong = token_tool + tien_xem + tien_lam_lai
+    cps = tong / thanh_cong
+    phut_hoa_von = (BASELINE * thanh_cong - token_tool - tien_lam_lai) / (so_xem * luong_phut)
+    return dict(so_yc=len(nhom), so_xem=so_xem, so_lam_lai=so_lam_lai, thanh_cong=thanh_cong,
+                token_tool=token_tool, tien_xem=tien_xem, tien_lam_lai=tien_lam_lai,
+                tong=tong, cps=cps, so_voi_baseline=cps / BASELINE, phut_hoa_von=phut_hoa_von)
+
+
 if __name__ == '__main__':
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
@@ -247,7 +272,16 @@ if __name__ == '__main__':
                   (' ← cps thấp nhất' if d['gioi_han'] == cps_thap else '')
         print(f"{d['gioi_han']:>8d} {d['tong_tro_ly']:>12,.0f} {d['khong_tc']:>9d} "
               f"{d['he_thong']:>12,.0f} {d['cps']:>7,.0f}{ghi_chu}")
-    # TODO CP2 · Nhiệm vụ B4: xem lại 100%.
+
+    # Nhiệm vụ B4: xem lại 100% trong phạm vi pilot; thêm độ nhạy theo phút làm lại thực tế.
+    phut_lam_lai_tb = reqs.loc[reqs['ket_qua'] == 'lam_lai', 'phut_lam_lai_simulated'].mean()
+    print(f"\nB4 · Xem lại 100%, phạm vi {' + '.join(PHAM_VI_PILOT)} (simulated)")
+    for nhan, phut in (('đề cho 9 phút làm lại', 9),
+                       (f'dữ liệu {phut_lam_lai_tb:.1f} phút làm lại', phut_lam_lai_tb)):
+        d = xem_lai_toan_bo(runs, reqs, phut_lam_lai=phut)
+        print(f"{nhan:28s} xem {d['so_xem']} yc · làm lại {d['so_lam_lai']} ca · "
+              f"token+tool {d['token_tool']:,.0f} · tổng {d['tong']:,.0f} → "
+              f"{d['cps']:,.0f} đ = {d['so_voi_baseline']:.2f}x · hoà vốn ≤ {d['phut_hoa_von']:.1f} phút xem/yc")
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
     #   from statsmodels.stats.power import NormalIndPower
