@@ -95,13 +95,17 @@ Mỗi người một mục dưới đây (phân công dự kiến, cập nhật 
 ### Phần việc phụ trách
 
 - Điền `report/team/ho_so_launch_v0.md` từ đầu buổi
-- CP3: gắn nhãn 20 ca độc lập
+- CP3: gắn nhãn 20 ca độc lập (Người gắn nhãn 2)
 - Duyệt chéo: `report/team/phieu_cham.md`; cuối buổi: `report/team/group_report.md`
 
 ### Đóng góp cụ thể
 
--
+- `report/team/bang_loi.md`: Hoàn thành gắn nhãn độc lập 20/20 ca lỗi (cột Nhãn người 2) theo 5 loại Google PAIR dựa trên nguyên nhân gốc.
+- `report/team/ho_so_launch_v0.md`: Tổng hợp đầy đủ 7 mục hồ sơ Gate 2a (gắn nhãn `simulated` cho các mục 1, 2, 3, 7; nêu rõ con số bất lợi power `0,64` và mức hoà vốn xem lại `5,1 phút`) và chốt đề xuất **Go có điều kiện** với 4 điều kiện có người phụ trách và ngày kiểm tra.
+- `report/team/phieu_cham.md`: Chuẩn bị phiếu chấm hội đồng Gate 2a cho nhóm Aliba6 (L3B), sẵn sàng điền điểm và câu hỏi kiểm tra chéo khi nhận hồ sơ nhóm bạn.
+- `report/team/group_report.md`: Viết báo cáo tổng hợp nhóm (tối đa 2 trang), liên kết các hồ sơ A–E và tóm tắt kết quả, khó khăn, hướng cải thiện.
+- Cập nhật báo cáo cá nhân `report/team/2A202603852_NguyenManhHung.md`.
 
 ### Bằng chứng
 
--
+- Các file: `report/team/bang_loi.md`, `report/team/ho_so_launch_v0.md`, `report/team/phieu_cham.md`, `report/team/group_report.md`, `report/team/2A202603852_NguyenManhHung.md`, `TEAM.md`.
