@@ -11,7 +11,7 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 | Phạm Hoàng Huy (nhóm trưởng) | 2A202603836 | | [justcoffeee](https://github.com/justcoffeee) | Người viết code (trước giải lao) → chỉ số, event, rủi ro |
+|   1 | Phạm Hoàng Huy (nhóm trưởng) | 2A202603836 | huyclaynun@gmail.com | [justcoffeee](https://github.com/justcoffeee) | Người viết code (trước giải lao) → chỉ số, event, rủi ro |
 |   2 | Lê Thanh Tùng | 2A202603819 | lethanhtung6803@gmail.com | [griin-03](https://github.com/griin-03) | Người kiểm số → người viết code (sau giải lao) |
 |   3 | Cấn Xuân Nghĩa | 2A202603805 | | [xuannghia2](https://github.com/xuannghia2) | Người gắn nhãn 1 |
 |   4 | Nguyễn Mạnh Hùng | 2A202603852 | | [HungLunnn](https://github.com/HungLunnn) | Người gắn nhãn 2, kiêm giữ hồ sơ |

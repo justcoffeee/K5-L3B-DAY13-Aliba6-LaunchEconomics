@@ -4,7 +4,7 @@
 
 - Họ tên: Phạm Hoàng Huy
 - MSSV: 2A202603836
-- Email:
+- Email: huyclaynun@gmail.com
 - GitHub: justcoffeee
 - Vai trong nhóm: Nhóm trưởng; người viết code (trước giải lao); sau giải lao phụ trách chỉ số, event, rủi ro
 
