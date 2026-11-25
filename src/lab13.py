@@ -185,6 +185,19 @@ def xep_hang_yeu_to(b1):
     return sorted(hang, key=lambda x: x[1], reverse=True)
 
 
+# ---------- Nhiệm vụ B3 · Giới hạn chạy lại có thật sự rẻ hơn ----------
+def chi_phi_he_thong(runs, reqs, gioi_han=(1, 2, 3)):
+    """Chi phí cả hệ thống = tổng chi phí trợ lý + BASELINE × số yêu cầu không thành công,
+    vì nhân viên phải làm thay các yêu cầu đó. Trả về list dict theo từng giới hạn."""
+    dong = []
+    for k in gioi_han:
+        kq = mo_hinh(runs, reqs, max_lan_chay=k)
+        khong_tc = len(reqs) - kq['thanh_cong']
+        dong.append(dict(gioi_han=k, tong_tro_ly=kq['tong'], khong_tc=khong_tc,
+                         he_thong=kq['tong'] + BASELINE * khong_tc, cps=kq['cps']))
+    return dong
+
+
 if __name__ == '__main__':
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
@@ -222,7 +235,19 @@ if __name__ == '__main__':
     print('Xếp hạng yếu tố theo mức thay đổi lớn nhất:')
     for i, (yt, pct) in enumerate(xep_hang_yeu_to(b1), 1):
         print(f'  {i}. {yt:20s} {pct:5.1f}%')
-    # TODO CP2 · Nhiệm vụ B3–B4: giới hạn chạy lại, xem lại 100%.
+
+    # Nhiệm vụ B3: giới hạn chạy lại, tính chi phí cả hệ thống.
+    b3 = chi_phi_he_thong(runs, reqs)
+    re_nhat = min(b3, key=lambda d: d['he_thong'])['gioi_han']
+    cps_thap = min(b3, key=lambda d: d['cps'])['gioi_han']
+    print('\nB3 · Giới hạn chạy lại, chi phí cả hệ thống cho 1.200 yêu cầu (simulated)')
+    print(f"{'gioi_han':>8s} {'tong_tro_ly':>12s} {'khong_tc':>9s} {'he_thong':>12s} {'cps':>7s}")
+    for d in b3:
+        ghi_chu = (' ← rẻ nhất cho công ty' if d['gioi_han'] == re_nhat else '') + \
+                  (' ← cps thấp nhất' if d['gioi_han'] == cps_thap else '')
+        print(f"{d['gioi_han']:>8d} {d['tong_tro_ly']:>12,.0f} {d['khong_tc']:>9d} "
+              f"{d['he_thong']:>12,.0f} {d['cps']:>7,.0f}{ghi_chu}")
+    # TODO CP2 · Nhiệm vụ B4: xem lại 100%.
     # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
     #   from statsmodels.stats.proportion import proportion_effectsize
     #   from statsmodels.stats.power import NormalIndPower
