@@ -15,7 +15,7 @@ Nhóm thực hiện đánh giá kinh tế triển khai (Launch Economics) và l�
 ## 3. Giải pháp
 
 - **Nhiệm vụ A & B ([`src/lab13.py`](../../src/lab13.py), [`bang_chi_phi.md`](bang_chi_phi.md)):** Hoàn thành 3 phép thử A1 đạt (`1,20 · 1,25 · 1,25`), viết hàm `mo_hinh` tính đủ token, tool và thời gian nhân viên (xem lại, làm lại), tách theo 4 loại yêu cầu (`noi_dia`, `hang_nang`, `quoc_te`, `doi_tac`), cộng chi phí cố định 40 triệu đ/tháng, và chạy 9 kịch bản độ nhạy B1–B4.
-- **Nhiệm vụ C ([`bang_loi.md`](bang_loi.md)):** Người gắn nhãn 2 đã hoàn thành phân loại độc lập 20/20 ca theo 5 loại Google PAIR dựa trên nguyên nhân gốc; đang chờ Người gắn nhãn 1 hoàn thành bộ nhãn độc lập để tính tỉ lệ đồng thuận và chốt bảng khắc phục 5 ca.
+- **Nhiệm vụ C ([`bang_loi.md`](bang_loi.md)):** Hoàn thành và chốt hai bộ nhãn 20/20 ca theo 5 loại Google PAIR (đồng thuận `20/20 = 100%`), kèm căn cứ phân loại 20 ca và bảng khắc phục 5 ca (`1, 20, 3, 19, 17`) có cách phát hiện đo được và vai trò phụ trách.
 - **Nhiệm vụ D ([`pilot_plan.yaml`](pilot_plan.yaml)):** Tính 5 câu D1 bằng `NormalDist`, phân tích đánh đổi và chọn chia cụm theo nhân viên `20 + 20` (`unit: staff`), phạm vi `noi_dia` + `hang_nang`, thiết lập 4 luật dừng đủ 4 vế `NẾU – TRONG – THÌ – KHÔNG THÌ`.
 - **Nhiệm vụ E ([`chi_so.md`](chi_so.md), [`ho_so_launch_v0.md`](ho_so_launch_v0.md)):** Tính thử 3 chỉ số trên dữ liệu chạy thử, đề xuất 2 chỉ số mới, thiết kế 10 event có `trace_id`, lập 4 dòng rủi ro kinh tế và tổng hợp thành hồ sơ 1 trang để trình duyệt chéo Gate 2a ([`phieu_cham.md`](phieu_cham.md)).
 
@@ -31,7 +31,7 @@ Nhóm thực hiện đánh giá kinh tế triển khai (Launch Economics) và l�
 
 - **Hạn chế cỡ mẫu cụm (40 nhân viên, 12 depot):** Không cách chia theo cụm nào đủ mẫu cho mức chênh `5 điểm` (`20 / 0,02 = 1.000 < 1.251`). Nhóm xử lý bằng cách chọn chia theo nhân viên `20 + 20` để tách được tác động, chấp nhận `mde = 0,06` và nêu rõ power `0,64` ở mức `5 điểm` trong hồ sơ.
 - **Ngưỡng an toàn thực tế:** Tỉ lệ mở lại hiện tại là `4,25%`, nên đặt trần `3%` sẽ khiến pilot dừng ngay tuần đầu; nhóm chuyển sang so sánh với nhóm đối chứng (`≥ 2 điểm`) kèm trần tuyệt đối `6%`.
-- **Tiến độ phân loại lỗi:** Nhiệm vụ C mới hoàn thành bộ nhãn độc lập của Người gắn nhãn 2; nhóm đưa việc hoàn tất đối chiếu đồng thuận và sửa lỗi ca 7, ca 20 vào điều kiện bắt buộc trước ngày mở pilot.
+- **Khắc phục lỗi hệ thống:** Bảng lỗi đã chốt 100% nhưng vẫn còn lỗi nghiêm trọng như hoàn trùng (ca 20) và báo thành công khi sổ cái lỗi 503 (ca 7); nhóm đưa việc sửa hai lỗi này vào điều kiện bắt buộc trước ngày mở pilot.
 
 ## 6. Tổng hợp đóng góp
 

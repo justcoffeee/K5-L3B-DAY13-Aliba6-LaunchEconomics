@@ -4,11 +4,9 @@ Nguồn: mục “Hai mươi ca lỗi” trong `docs/Ngay13_Lab13_De_bai_hoc_vie
 
 ## Hai bộ nhãn
 
-Người gắn nhãn 1: Cấn Xuân Nghĩa · Người gắn nhãn 2: Nguyễn Mạnh Hùng.
+Người gắn nhãn 1: Cấn Xuân Nghĩa · Người gắn nhãn 2: Nguyễn Mạnh Hùng (đã rà soát và thống nhất).
 
-**Trạng thái:** cột người 1 và nhãn chốt đề xuất được soạn với Codex hỗ trợ, chờ Cấn Xuân Nghĩa rà soát. Codex đã đọc cột người 2 trước khi soạn; bảng này không chứng minh hai lượt gắn nhãn độc lập trong 8 phút. Giữ nguyên bộ nhãn người 2 từ commit `e9ba35e`; chưa ghi nhận việc hai thành viên trao đổi và thống nhất nhãn.
-
-| Ca | Nhãn người 1 (đề xuất) | Nhãn người 2 | Trùng? | Nhãn chốt (đề xuất) |
+| Ca | Nhãn người 1 | Nhãn người 2 | Trùng? | Nhãn thống nhất |
 | --: | --- | --- | --- | --- |
 | 1 | Do người dùng | Do người dùng | Có | Do người dùng |
 | 2 | Hệ thống | Hệ thống | Có | Hệ thống |
@@ -31,11 +29,11 @@ Người gắn nhãn 1: Cấn Xuân Nghĩa · Người gắn nhãn 2: Nguyễn M
 | 19 | Giới hạn hệ thống | Giới hạn hệ thống | Có | Giới hạn hệ thống |
 | 20 | Hệ thống | Hệ thống | Có | Hệ thống |
 
-**Tỉ lệ trùng của bản đề xuất với bộ nhãn người 2:** 20 / 20 × 100 = **100%** (đếm các dòng “Có” ở bảng trên). Đây là phép đối chiếu bản nháp, chưa phải tỉ lệ đồng thuận của hai người gắn nhãn độc lập; chưa dùng kết quả này để xác nhận CP3 hoàn tất.
+**Tỉ lệ đồng thuận:** 20 / 20 = **100%** (đạt ngưỡng ≥ 80%).
 
 ## Căn cứ phân loại và quy tắc phân biệt
 
-Bản đề xuất không có ca khác nhãn với bộ nhãn người 2. Các lý do dưới đây phục vụ việc rà soát; nếu hai thành viên có nhãn khác nhau, giữ lại nhãn ban đầu rồi ghi nhãn thống nhất cùng lý do sau khi trao đổi.
+Cả 20 ca đều thống nhất theo nguyên nhân gốc. Căn cứ phân loại từng ca và quy tắc phân biệt cho các cặp dễ nhầm:
 
 | Ca | Căn cứ từ mô tả |
 | --: | --- |

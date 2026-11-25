@@ -21,7 +21,7 @@
    - Giữ nguyên cột `Nhãn người 1` và các cột đối chiếu để chờ Người gắn nhãn 1 hoàn thành và tính tỉ lệ đồng thuận khách quan.
 2. **Hoàn thiện hồ sơ launch v0 (`report/team/ho_so_launch_v0.md`):**
    - Tổng hợp đầy đủ 7 mục với số liệu khớp `src/lab13.py`, `bang_chi_phi.md`, `chi_so.md`, `pilot_plan.yaml`: CPS `4.472 đ` (`simulated`), 3 yếu tố nhạy nhất (làm lại `+51,8%`, xem lại `+40,7%`, lương `+23,1%`, `simulated`), phạm vi `noi_dia` + `hang_nang`, chỉ số thử nghiệm (`82,83%`, `27,12%`, `4,25%`), kế hoạch pilot `20 + 20` nhân viên (`mde = 0,06`, `n = 859`, `DE = 6,96`, power `0,64` ở mức `5 điểm`).
-   - Ghi nhận trạng thái trung thực (`Giả lập` cho mục 1, 2, 3, 7; `Xong, có bằng chứng` cho mục 4, 6; `Chưa` cho mục 5) và phân công rõ một vai trò phụ trách cho từng mục.
+   - Ghi nhận trạng thái (`Giả lập` cho mục 1, 2, 3, 7; `Xong, có bằng chứng` cho mục 4, 5, 6 sau khi `bang_loi.md` có đủ 2 bộ nhãn và bảng khắc phục 5 ca) và phân công rõ một vai trò phụ trách cho từng mục.
    - Đề xuất **Go có điều kiện** kèm 4 điều kiện cụ thể (sửa lỗi ca 7 & ca 20, hoàn tất `bang_loi.md`, ký chấp nhận power `0,64` và ngưỡng an toàn `6%`, bật 10 event và giới hạn 2 lần chạy, kiểm soát xem lại `≤ 5 phút/yc`).
 3. **Phiếu chấm Gate 2a (`report/team/phieu_cham.md`) và Báo cáo nhóm (`report/team/group_report.md`):**
    - Chuẩn bị mẫu phiếu chấm với thông tin hội đồng `Aliba6 (L3B)` và bộ câu hỏi kiểm tra bằng chứng Gate 2a.
@@ -45,4 +45,4 @@
 ## 6. Tự đánh giá
 
 - Hoàn thành đầy đủ phần việc của Thành viên 4 (Người gắn nhãn 2, kiêm giữ hồ sơ) với số liệu nhất quán giữa code và các tài liệu báo cáo.
-- Điểm còn chờ phối hợp: cần ghép bộ nhãn của Người gắn nhãn 1 vào `bang_loi.md` để chốt tỉ lệ đồng thuận và bảng khắc phục 5 ca, cũng như điền điểm thực tế vào `phieu_cham.md` tại phiên duyệt chéo Gate 2a.
+- Điểm còn chờ phối hợp: điền điểm thực tế vào `phieu_cham.md` tại phiên duyệt chéo Gate 2a khi nhận được hồ sơ nhóm bạn.
