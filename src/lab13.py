@@ -305,3 +305,18 @@ if __name__ == '__main__':
     m_min = math.ceil(0.98 * n_e / (20 - 0.02 * n_e))
     de_e = 1 + (m_min - 1) * 0.02
     print(f"e) Mức chênh 6 điểm (+6%): n_per_arm={n_e} -> m >= {m_min} yc/người (DE={de_e:.2f})")
+
+    # Power nếu chọn mde 6 điểm (n_e mỗi nhóm) nhưng tác động thật chỉ 5 điểm.
+    # Cùng công thức statsmodels NormalIndPower + proportion_effectsize (Cohen's h, hai phía).
+    h = abs(2 * math.asin(math.sqrt(0.75)) - 2 * math.asin(math.sqrt(0.70)))
+    za = NormalDist().inv_cdf(1 - 0.05 / 2)
+    lech = h * math.sqrt(n_e / 2)
+    power_5d = NormalDist().cdf(lech - za) + NormalDist().cdf(-lech - za)
+    print(f"   Nếu tác động thật chỉ 5 điểm mà mỗi nhóm {n_e}: power ≈ {power_5d:.2f}")
+
+    # D3 · Đầu vào cho luật an toàn: tỉ lệ mở lại trong 7 ngày hiện tại.
+    pv = reqs[reqs['loai'].isin(PHAM_VI_PILOT)]
+    print(f"\nTỉ lệ mo_lai_trong_7_ngay hiện tại: {reqs['mo_lai_trong_7_ngay'].mean():.2%} "
+          f"({reqs['mo_lai_trong_7_ngay'].sum()}/{len(reqs)}); "
+          f"trong phạm vi pilot {pv['mo_lai_trong_7_ngay'].mean():.2%} "
+          f"({pv['mo_lai_trong_7_ngay'].sum()}/{len(pv)})")
